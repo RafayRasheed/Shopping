@@ -5,6 +5,7 @@ import { AccScreen } from "./acc_screen";
 import { ForgetPassword } from "./forget_p_screen";
 import { DoneEmail } from "./done_email_screen";
 import { DonePass } from "./done_pass_screen";
+import { NewPass } from "./new_pass_screen";
 
 const Xr=({navigation})=>(
     <View style={{flex:1}}>
@@ -34,6 +35,10 @@ export const AccountNavigator=()=>{
             <AccountStack.Screen
                 name="DoneEmail"
                 component={DoneEmail}
+            />
+            <AccountStack.Screen
+                name="NewPass"
+                component={NewPass}
             />
             <AccountStack.Screen
                 name="DonePass"

@@ -28,7 +28,7 @@ export const DoneEmail= ({navigation})=>{
                     {/* T Resubmet */}
                     <View style={{flexDirection:'row'}}>
                         <Text style={styles.textLight}>Can't get email?</Text>
-                        <TouchableOpacity onPress={()=>navigation.navigate("DonePass")} activeOpacity={0.6}>
+                        <TouchableOpacity onPress={()=>navigation.replace("NewPass")} activeOpacity={0.6}>
                             <Text style={styles.textResub}> Resubmit</Text>
                         </TouchableOpacity> 
                     </View>
