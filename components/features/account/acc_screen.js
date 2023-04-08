@@ -46,7 +46,7 @@ export const AccScreen=({navigation})=>{
                         </View>
 
                         {/* <Spacer paddingT={responsiveScreenHeight(4.4)}/> */}
-                        {onLogin?<Login navigate={navigation.navigate}/>:<CreateAcc/>}
+                        {onLogin?<Login navigate={navigation.replace}/>:<CreateAcc/>}
                         {/* <Spacer paddingT={responsiveScreenHeight(4)}/> */}
 
                     </View>

@@ -6,7 +6,8 @@ import { fonts, fontSizes } from "../../utils/my_fonts";
 import {
     responsiveHeight,
     responsiveWidth,
-    responsiveFontSize
+    responsiveFontSize,
+    responsiveScreenHeight
   } from "react-native-responsive-dimensions";
 
 const WithdHor= width/1.5;
@@ -65,7 +66,7 @@ export const OnboardScreen=({navigation})=>{
 
     for(let j=0;j<len;j++){
         dotArr.push(<View key={j} style={{backgroundColor:j==i?myColors.primary:myColors.dot, 
-        height:10, width:10, margin:5,borderRadius:10 }}/>)
+        height:responsiveScreenHeight(1.25), width:responsiveScreenHeight(1.25), margin:5,borderRadius:10 }}/>)
     }
 
     function Start(){
@@ -120,7 +121,7 @@ export const OnboardScreen=({navigation})=>{
             {/* Bottom , */}
             <View style={styles.bottom}>
                 {/* Skip  */}
-                <TouchableOpacity onPress={()=>i<len-1?navigation.replace('AccountStack'):null} style={{justifyContent:'center', width:responsiveWidth(9)}}>
+                <TouchableOpacity onPress={()=>i<len-1?navigation.replace('AccountStack'):null} style={{justifyContent:'center',minWidth:responsiveWidth(9)}}>
                     {i<len-1 && <Text style={{fontSize:fontSizes.medium, fontFamily:fonts.body, 
                     color:myColors.text}}>Skip</Text>}
                 </TouchableOpacity>

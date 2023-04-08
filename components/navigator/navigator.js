@@ -2,7 +2,8 @@ import { createStackNavigator, TransitionPresets } from "@react-navigation/stack
 import React from "react";
 import { Text, View, StatusBar } from "react-native";
 import { AccountNavigator } from "../features/account/acc_stack";
-import { HomeNavigator } from "../features/home/home_stack";
+import { HomeNavigator } from "../features/home/home_navigator";
+import { HomeScreen } from "../features/home/home_screen";
 import { OnboardScreen } from "../features/onboard/onboard_screen";
 
 const Xr=()=>(
@@ -24,7 +25,7 @@ export const Navigator=()=>{
                 component={OnboardScreen}
             />
             <AppNavigatorStack.Screen
-                name='HomeStack'
+                name='HomeNavigator'
                 component={HomeNavigator}
             />
              <AppNavigatorStack.Screen

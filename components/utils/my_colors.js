@@ -20,6 +20,7 @@ export const myColors = {
         offColor3:'#F4F4F4',
         offColor4:'#D2D4D8',
         border:'#BEC5D1',
+        searchbar:'#E6E7E9'
 
         
 }

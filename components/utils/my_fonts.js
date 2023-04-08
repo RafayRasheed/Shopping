@@ -10,6 +10,10 @@ export const fonts= {
 };
 
 export const fontSizes={
+    // veryTinyHalf:7,
+    veryTinyHalf:responsiveScreenFontSize(0.88),
+    // veryTiny:8,
+    veryTiny:responsiveScreenFontSize(1),
     // tiny:10,
     tiny: responsiveScreenFontSize(1.25),
     // small: 12,

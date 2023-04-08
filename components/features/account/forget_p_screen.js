@@ -98,7 +98,7 @@ const styles=StyleSheet.create({
         paddingStart:responsiveScreenWidth(3.3)
     },
     textSign:{
-        fontFamily:fonts.heading, color:myColors.textL,fontSize:fontSizes.XSmall,
+        fontFamily:fonts.heading, color:myColors.primary,fontSize:fontSizes.XSmall,
     }
 })
 

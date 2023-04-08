@@ -66,7 +66,7 @@ export const Login=({navigate})=>{
             <Spacer paddingT={responsiveScreenHeight(4.1)}/>
             <View style={{alignItems:'center'}}>
                 {/* Button Login */}
-                <TouchableOpacity onPress={()=>null} activeOpacity={0.8} 
+                <TouchableOpacity onPress={()=>verifyLog?navigate('HomeNavigator'):null} activeOpacity={0.8} 
                     style={[styles.button,{backgroundColor:verifyLog?myColors.primary:myColors.offColor3}]}>
                     <Text style={styles2(verifyLog).textReg}>Login</Text>
                 </TouchableOpacity>
