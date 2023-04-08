@@ -1,63 +1,53 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
-import { responsiveScreenFontSize, responsiveScreenHeight, responsiveScreenWidth } from 'react-native-responsive-dimensions';
+import { responsiveScreenHeight, responsiveScreenWidth } from 'react-native-responsive-dimensions';
 import { myColors } from '../../utils/my_colors';
-import { Spacer, StatusWhite, height } from '../../common,componenrs/common';
+import { Spacer, StatusWhite } from '../../common,componenrs/common';
 import { fontSizes, fonts } from '../../utils/my_fonts';
-// import { Searchbar } from 'react-native-paper';
-import { SearchBar } from '@rneui/themed';
 import { ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Animated } from 'react-native';
-const offers = [
-    {
-        logo: require('../../assets/home/logo1.png'),
-        title: 'Flash Offer',
-        des: 'We are here with the best deserts intown.',
-        image: require('../../assets/home/burgers.png'),
-        colors: ['#FF9F06', '#FFE1B4']
-    },
-    {
-        logo: require('../../assets/home/logo2.png'),
-        title: 'New Arrival',
-        des: 'We are here with the best deserts intown.',
-        image: require('../../assets/home/pizza.png'),
-        colors: ['#00D756', '#018AC5']
-    },
-    {
-        logo: require('../../assets/home/logo1.png'),
-        title: 'Flash Offer',
-        des: 'We are here with the best deserts intown.',
-        image: require('../../assets/home/burgers.png'),
-        colors: ['#FF9F06', '#FFE1B4']
-    },
-    {
-        logo: require('../../assets/home/logo1.png'),
-        title: 'Flash Offer',
-        des: 'We are here with the best deserts intown.',
-        image: require('../../assets/home/burgers.png'),
-        colors: ['#FF9F06', '#FFE1B4']
-    },
+import { foods, offers } from './home.components/data';
+import { Item } from './home.components/item';
 
-]
+
+const HeadingRow = ({ head, des, onClick }) => (
+    <View style={styles.containerHeadingRow}>
+        <View>
+            <Text style={styles.textHeadingRow}>{head}</Text>
+            <Text style={styles.textDesRow}>{des}</Text>
+        </View>
+        <TouchableOpacity activeOpacity={0.5} onPress={() => onClick()}>
+            <Text style={styles.textDesRow}>See All <Image source={require("../../assets/home/go.png")} /></Text>
+        </TouchableOpacity>
+    </View>
+)
+
+function onNewArrival() {
+    console.log('ok New')
+}
+
+function onBookRes() {
+    console.log('ok Book')
+}
 
 export const HomeScreen = ({ navigation }) => {
     const [search, setSearch] = useState(null)
     const [i, setI] = useState(0)
     const dotArr = []
-    const offerWidthSScroll=responsiveScreenWidth(76.5)
-    const len = offers.length
+    const offerWidthSScroll = responsiveScreenWidth(76.5)
+    const lenOffers = Object.keys(offers).length
 
     // Loop for dots
-    for (let j = 0; j < len; j++) {
-        dotArr.push(<View key={j} style={[styles.dot,{backgroundColor: j == i ? myColors.primary : myColors.dot,}]} />)
+    for (let j = 0; j < lenOffers; j++) {
+        dotArr.push(<View key={j} style={[styles.containerDot, { backgroundColor: j == i ? myColors.primary : myColors.dot, }]} />)
     }
+
     //Offer Scroll
     function handleScroll(event) {
-        
-        const a=(event.nativeEvent.contentOffset.x)/offerWidthSScroll
-        let b=Math.round(a)
-        if(i!=b){
+
+        const a = (event.nativeEvent.contentOffset.x) / offerWidthSScroll
+        let b = Math.round(a)
+        if (i != b && b < lenOffers) {
             setI(b)
         }
     }
@@ -87,7 +77,7 @@ export const HomeScreen = ({ navigation }) => {
                 <Spacer paddingEnd={'2.14%'} />
                 <TextInput placeholder="Search"
                     placeholderTextColor={myColors.offColor}
-                    style={styles.search} cursorColor={myColors.primary}
+                    style={styles.containerInputSearch} cursorColor={myColors.primary}
                     value={search} onChangeText={setSearch}
                 />
             </View>
@@ -106,7 +96,7 @@ export const HomeScreen = ({ navigation }) => {
                     pagingEnabled
                     snapToInterval={offerWidthSScroll}
                     // snapToAlignment={"center"}
-                    scrollEventThrottle={10}
+                    scrollEventThrottle={1}
                 >
                     {offers.map((item, i) =>
                         <View key={i}>
@@ -127,7 +117,7 @@ export const HomeScreen = ({ navigation }) => {
                                     <TouchableOpacity activeOpacity={0.8}
                                         style={{ flexDirection: 'row', alignItems: 'center' }}
                                         onPress={() => null}>
-                                        <Text style={styles.textOfferOrder}>Order <Image style={styles.imgOfferGo} source={require('../../assets/home/goSmall.png')} /></Text>
+                                        <Text style={styles.textOfferOrder}>Order <Image style={styles.imgOfferGo} source={require('../../assets/home/offer/goSmall.png')} /></Text>
                                     </TouchableOpacity>
                                 </View>
 
@@ -139,23 +129,49 @@ export const HomeScreen = ({ navigation }) => {
                     )
                     }
                 </ScrollView>
+
                 <Spacer paddingT={responsiveScreenHeight(1.9)} />
                 {/*Dots */}
                 <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
                     {dotArr}
                 </View>
+
+                <Spacer paddingT={responsiveScreenHeight(4.43)} />
+                {/* Heading Row */}
+                <HeadingRow head={'Today New Arivable'} des={'Best of the today  food list update'} onClick={onNewArrival} />
+
+                <Spacer paddingT={responsiveScreenHeight(2)} />
+                {/* New Arrival */}
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ paddingHorizontal: responsiveScreenWidth(1.6) }}
+                >
+                    {
+                        foods.map((item, i) =>
+                            <TouchableOpacity key={i} activeOpacity={0.8}>
+                                <Item item={item} />
+                            </TouchableOpacity>
+                        )
+                    }
+
+                </ScrollView>
+
+                <Spacer paddingT={responsiveScreenHeight(4.43)} />
+                {/* Heading Row */}
+                <HeadingRow head={'Booking Restaurant'} des={'Check your city Near by Restaurant'} onClick={onBookRes} />
             </View>
-
         </View>
-
     )
 }
 const styles = StyleSheet.create({
+    // Containers
     container: {
         flex: 1, backgroundColor: myColors.background,
         paddingVertical: responsiveScreenHeight(1.5),
 
     },
+
     containerTop: {
         paddingHorizontal: responsiveScreenWidth(5.3),
         flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
@@ -168,6 +184,14 @@ const styles = StyleSheet.create({
         backgroundColor: myColors.searchbar, alignItems: 'center',
     },
 
+    containerInputSearch: {
+        flex: 1,
+        height: responsiveScreenHeight(4.43),
+        backgroundColor: myColors.searchbar,
+        fontSize: fontSizes.small, color: myColors.text, fontFamily: fonts.body, borderRadius: responsiveScreenHeight(1.5),
+        paddingEnd: responsiveScreenWidth(4)
+    },
+
     containerOffer: {
         flexDirection: 'row', justifyContent: 'space-between',
         width: responsiveScreenWidth(74.7), height: responsiveScreenHeight(14.7),
@@ -175,9 +199,18 @@ const styles = StyleSheet.create({
         marginStart: responsiveScreenWidth(2), elevation: 1, overflow: 'hidden'
     },
 
-    dot:{
-        height: responsiveScreenHeight(1.1), width: responsiveScreenHeight(1.1), 
-        margin: 3, borderRadius: responsiveScreenHeight(0.6),},
+    containerDot: {
+        height: responsiveScreenHeight(1.1), width: responsiveScreenHeight(1.1),
+        margin: 3, borderRadius: responsiveScreenHeight(0.6),
+    },
+
+    containerHeadingRow: {
+        flexDirection: 'row', justifyContent: 'space-between',
+        alignItems: 'center', paddingHorizontal: responsiveScreenWidth(4.5)
+    },
+
+
+    // Images
     imageBar: {
         resizeMode: 'contain', height: responsiveScreenHeight(1.5), width: responsiveScreenWidth(4.2)
     },
@@ -209,6 +242,7 @@ const styles = StyleSheet.create({
     },
 
 
+    // Text
     textLoc: {
         paddingHorizontal: responsiveScreenWidth(1), fontFamily: fonts.bodyBold, fontSize: fontSizes.small, color: myColors.textL2,
     },
@@ -221,14 +255,13 @@ const styles = StyleSheet.create({
     textOfferOrder: {
         fontFamily: fonts.headingBold, fontSize: fontSizes.veryTiny, color: myColors.background,
     },
-
-    search: {
-        flex: 1,
-        height: responsiveScreenHeight(4.43),
-        backgroundColor: myColors.searchbar,
-        fontSize: fontSizes.small, color: myColors.text, fontFamily: fonts.body, borderRadius: responsiveScreenHeight(1.5),
-        paddingEnd: responsiveScreenWidth(4)
+    textHeadingRow: {
+        fontFamily: fonts.heading, fontSize: fontSizes.medium, color: myColors.text,
     },
+    textDesRow: {
+        fontFamily: fonts.bodyBold, fontSize: fontSizes.small, color: myColors.textL,
+    },
+
 
 
 })
