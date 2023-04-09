@@ -11,23 +11,23 @@ export const fonts= {
 
 export const fontSizes={
     // veryTinyHalf:7,
-    veryTinyHalf:responsiveScreenFontSize(0.88),
+    veryTinyHalf:responsiveScreenFontSize(1),
     // veryTiny:8,
-    veryTiny:responsiveScreenFontSize(1),
+    veryTiny:responsiveScreenFontSize(1.15),
     // tiny:10,
-    tiny: responsiveScreenFontSize(1.25),
+    tiny: responsiveScreenFontSize(1.27),
     // small: 12,
-    small:responsiveScreenFontSize(1.5),
+    small:responsiveScreenFontSize(1.47),
     // XSmall: 14,
-    XSmall: responsiveScreenFontSize(1.75),
+    XSmall: responsiveScreenFontSize(1.6),
     // medium: 16,
-    medium: responsiveScreenFontSize(2),
+    medium: responsiveScreenFontSize(1.8),
     // xMedium: 18,
-    xMedium: responsiveScreenFontSize(2.25),
+    xMedium: responsiveScreenFontSize(2),
     // large: 20,
-    large: responsiveScreenFontSize(2.5),
+    large: responsiveScreenFontSize(2.2),
     // xLarge: 24,
-    xLarge: responsiveScreenFontSize(3),
+    xLarge: responsiveScreenFontSize(2.4),
 }
 
 export const fontSizes_px={

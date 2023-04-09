@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         marginStart: responsiveScreenWidth(3.2),
         borderRadius: responsiveScreenWidth(4),
         backgroundColor: myColors.background,
+        margin:1,
         elevation: 1,
     },
     containerItems: {

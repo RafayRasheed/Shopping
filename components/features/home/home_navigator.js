@@ -7,23 +7,30 @@ import { responsiveScreenHeight, responsiveScreenWidth } from "react-native-resp
 import {Ionicons} from "@expo/vector-icons"
 import { HomeScreen } from "./home_screen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { HomeStackNavigator } from "./home_stack";
 const Tab = createBottomTabNavigator()
 
-const Icons={
-    Home: 'md-home-outline',
-    History:  'md-newspaper-outline',
-    Profile:  'md-person-outline',
+const IconsOn={
+    Home: require('../../assets/home/navigation/homeOn.png'),
+    History:  require('../../assets/home/navigation/historyOn.png'),
+    Profile:  require('../../assets/home/navigation/personOn.png'),
+}
+const IconsOff={
+  Home: require('../../assets/home/navigation/homeOff.png'),
+  History:  require('../../assets/home/navigation/historyOff.png'),
+  Profile:  require('../../assets/home/navigation/personOff.png'),
 }
   const screenOptions =({route}) => {
-    const iconName=Icons[route.name]
+    const name=route.name
     return{
       tabBarActiveTintColor:myColors.primary,
       tabBarInactiveTintColor:myColors.textL2,
-      tabBarIcon: ({color, size }) => <Ionicons name={iconName} size={responsiveScreenHeight(3)} color={color} />,
+      tabBarIcon: ({color, size }) => <Image style={{width:responsiveScreenWidth(9),height:responsiveScreenHeight(4), resizeMode:'contain'}} 
+        source= {color==myColors.primary?IconsOn[name]:IconsOff[name]}/>,
       tabBarShowLabel:false,
       tabBarStyle: {
-          borderTopLeftRadius: responsiveScreenWidth(5.3),
-          borderTopRightRadius: responsiveScreenWidth(5.3),
+          borderTopLeftRadius: responsiveScreenWidth(8),
+          borderTopRightRadius: responsiveScreenWidth(8),
           backgroundColor: myColors.background,
           height:responsiveScreenHeight(7.8) ,
       },
@@ -36,7 +43,6 @@ const Xr=()=>(
     </View>
 )
 
-
 export const HomeNavigator=()=>{
     return(
       <>
@@ -48,12 +54,10 @@ export const HomeNavigator=()=>{
           shifting={false}
           tabBarShowLabel={false}>
 
-          
-          <Tab.Screen name="Home" component={HomeScreen}  options={{headerShown: false}}/>
+          <Tab.Screen name="Home" component={HomeStackNavigator}  
+            options={{headerShown: false} }/>
           <Tab.Screen name="History" component={Xr}  options={{headerShown: false}}/>
           <Tab.Screen name="Profile" component={Xr} options={{headerShown: false}}/>
-
-
 
         </Tab.Navigator>
       </>
