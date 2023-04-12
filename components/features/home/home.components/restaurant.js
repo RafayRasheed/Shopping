@@ -7,16 +7,15 @@ import { fontSizes, fonts } from "../../../utils/my_fonts";
 import { Spacer } from "../../../common,componenrs/common";
 import { TouchableOpacity } from "react-native";
 
-export const Restuarant = ({ restaurant }) => {
-    const d = new Date();
-    let day = d.getDay()
+export const Restuarant = ({ restaurant, onCheck, navigate }) => {
+
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={restaurant.image} />
             {/* Text Portion */}
             <View style={styles.containerDetail}>
                 <Text numberOfLines={1} style={styles.textName}>{restaurant.name}</Text>
-                <Spacer paddingT={responsiveScreenHeight(0.6)}/>
+                <Spacer paddingT={responsiveScreenHeight(0.5)} />
                 {/* Second row */}
                 <View style={{ flexDirection: 'row' }}>
                     {/* Location */}
@@ -26,8 +25,8 @@ export const Restuarant = ({ restaurant }) => {
                         <Text style={styles.textLoc}>{restaurant.location}</Text>
                     </View>
                     {/* Button */}
-                    <TouchableOpacity activeOpacity={0.8} style={styles.containerButton}>
-                        <Text style={styles.textButton}>Book</Text>
+                    <TouchableOpacity onPress={() =>onCheck?onCheck(restaurant):navigate('ResDetailScreen',{restaurant})} activeOpacity={0.8} style={styles.containerButton}>
+                        <Text style={styles.textButton}>{onCheck ? 'Check' : 'Book'}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -54,11 +53,11 @@ const styles = StyleSheet.create({
     containerLocation: {
         flexDirection: 'row', alignItems: 'center'
     },
-    containerButton:{
-        backgroundColor:myColors.primary,alignItems:'center',
-        justifyContent:'center', paddingHorizontal:responsiveScreenWidth(7.7),
-        paddingVertical:responsiveScreenHeight(0.7),borderRadius:responsiveScreenWidth(2),
-        marginEnd:responsiveScreenWidth(3.2)
+    containerButton: {
+        backgroundColor: myColors.primary, alignItems: 'center',
+        justifyContent: 'center', paddingHorizontal: responsiveScreenWidth(7.7),
+        paddingVertical: responsiveScreenHeight(0.7), borderRadius: responsiveScreenWidth(2),
+        marginEnd: responsiveScreenWidth(3.2)
     },
     image: {
         width: responsiveScreenHeight(7.5), height: responsiveScreenHeight(7.5),
@@ -75,10 +74,10 @@ const styles = StyleSheet.create({
     },
     textLoc: {
         fontFamily: fonts.body, fontSize: fontSizes.tiny, color: myColors.textL,
-        width:responsiveScreenWidth(32), marginHorizontal:responsiveScreenWidth(1),
+        width: responsiveScreenWidth(32), marginHorizontal: responsiveScreenWidth(1),
     },
-    textButton:{
-        fontFamily:fonts.heading, fontSize:fontSizes.small, color:myColors.background
+    textButton: {
+        fontFamily: fonts.heading, fontSize: fontSizes.small, color: myColors.background
     }
 
 

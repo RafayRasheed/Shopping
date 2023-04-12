@@ -1,15 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
 import { responsiveScreenHeight, responsiveScreenWidth } from 'react-native-responsive-dimensions';
 import { myColors } from '../../utils/my_colors';
-import { Spacer, StatusWhite } from '../../common,componenrs/common';
+import { Spacer } from '../../common,componenrs/common';
 import { fontSizes, fonts } from '../../utils/my_fonts';
-import { ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { foods, offers, restaurants } from './home.components/data';
 import { Item } from './home.components/item';
 import { Restuarant } from './home.components/restaurant';
-import { RestaurantDetails } from './rest_detail_screen';
 
 
 const HeadingRow = ({ head, des, onClick }) => (
@@ -32,13 +30,12 @@ function onBookRes() {
     console.log('ok Book')
 }
 
-export const HomeScreen = ({ navigation }) => {
+export const HomeScreen = ({ navigation, route }) => {
     const [search, setSearch] = useState(null)
     const [i, setI] = useState(0)
     const dotArr = []
     const offerWidthSScroll = responsiveScreenWidth(76.5)
     const lenOffers = Object.keys(offers).length
-   
 
     // Loop for dots
     for (let j = 0; j < lenOffers; j++) {
@@ -47,7 +44,6 @@ export const HomeScreen = ({ navigation }) => {
 
     //Offer Scroll
     function handleScroll(event) {
-
         const a = (event.nativeEvent.contentOffset.x) / offerWidthSScroll
         let b = Math.round(a)
         if (i != b && b < lenOffers) {
@@ -57,9 +53,7 @@ export const HomeScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <StatusWhite />
             {/* Top Location & pic */}
-            {/* <RestaurantDetails /> */}
             <View style={styles.containerTop}>
                 {/* I bar */}
                 <Image style={styles.imageBar} source={require('../../assets/home/bar.png')} />
@@ -88,7 +82,9 @@ export const HomeScreen = ({ navigation }) => {
 
             <Spacer paddingT={responsiveScreenHeight(0.5)} />
             <ScrollView
-                contentContainerStyle={{ paddingVertical: responsiveScreenHeight(1.5) }}>
+                contentContainerStyle={{ paddingVertical: responsiveScreenHeight(1.5) }}
+                overScrollMode="never"
+            >
                 <Spacer paddingT={responsiveScreenHeight(1.7)} />
                 {/* Offers & Dots */}
                 <View>
@@ -152,8 +148,7 @@ export const HomeScreen = ({ navigation }) => {
                     <ScrollView
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ paddingHorizontal: responsiveScreenWidth(1.6) }}
-                    >
+                        contentContainerStyle={{ paddingHorizontal: responsiveScreenWidth(1.6) }}>
                         {
                             foods.map((item, i) =>
                                 <TouchableOpacity key={i} activeOpacity={0.8}>
@@ -166,17 +161,13 @@ export const HomeScreen = ({ navigation }) => {
 
                     <Spacer paddingT={responsiveScreenHeight(2.8)} />
                     {/* Heading Row */}
-                    <HeadingRow head={'Booking Restaurant'} des={'Check your city Near by Restaurant'} 
-                    onClick={onBookRes} />
+                    <HeadingRow head={'Booking Restaurant'} des={'Check your city Near by Restaurant'}
+                        onClick={onBookRes} />
 
                     {/* Restaurants */}
                     <View style={styles.containerRes}>
                         {
-                            restaurants.map((restaurant, i) =>
-                                <TouchableOpacity key={i} activeOpacity={0.8} 
-                                onPress={()=>navigation.navigate('ResDetailScreen', {restaurant})}>
-                                    <Restuarant restaurant={restaurant} />
-                                </TouchableOpacity>
+                            restaurants.slice(0, 3).map((restaurant, i) => <Restuarant key={i} restaurant={restaurant} navigate={navigation.navigate} />
                             )
                         }
                     </View>
@@ -189,8 +180,6 @@ const styles = StyleSheet.create({
     // Containers
     container: {
         flex: 1, backgroundColor: myColors.background,
-
-
     },
 
     containerTop: {
@@ -229,8 +218,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row', justifyContent: 'space-between',
         alignItems: 'center', paddingHorizontal: responsiveScreenWidth(4.5)
     },
-    containerRes:{
-        paddingVertical:responsiveScreenHeight(1)
+    containerRes: {
+        paddingVertical: responsiveScreenHeight(1)
     },
 
     // Images
