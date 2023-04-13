@@ -17,5 +17,4 @@
     <item name="android:windowBackground">@drawable/splashscreen</item>
       <item name="android:colorEdgeEffect">#E53644</item>
   </style>
-  <item name="android:colorEdgeEffect">#E53644</item>
 </resources>
