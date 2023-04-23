@@ -14,7 +14,7 @@ export const Navigator=()=>{
             }}>
             <AppNavigatorStack.Screen
                 name='OnboardStack'
-                component={HomeNavigator}
+                component={AccountNavigator}
             />
             <AppNavigatorStack.Screen
                 name='HomeNavigator'
