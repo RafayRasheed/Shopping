@@ -4,10 +4,13 @@ import { responsiveScreenHeight, responsiveScreenWidth } from "react-native-resp
 import { myColors } from "../../../utils/my_colors";
 import { fontSizes, fonts } from "../../../utils/my_fonts";
 import { Spacer } from "../../../common,componenrs/common";
+import { axiosInstance } from "../../../common,componenrs/backend";
+// const axiosInstance = axios.create({ baseURL: 'http://192.168.1.108:3000' });
+
 export const CreateAcc=()=>{
     const [name, setName]=useState(null)
     const [email, setEmail]=useState()
-    const [pass, setPass]=useState()
+    const [password, setPass]=useState()
     const [verifyReg, setVerifyReg]=useState(false)
     
     function verifyName(){
@@ -23,21 +26,38 @@ export const CreateAcc=()=>{
         return false
     }
     function verifyPass(){
-        if(pass){
+        if(password){
             return true
         }
         return false
     }
 
+    async function register(){
+        try {
+            axiosInstance.post('/users/signup', {
+                name,
+                email,
+                password,
+            }).then(resp => {
+                console.log(resp.data);
+            })
+            .catch(function (error) {
+                console.log(error.response.data.message);
+            });
+        }
+        catch (error) {
+            console.log('failed to connect url')
+        }
+    }
+
     useEffect(()=>{
         if(verifyName() && verifyEmail() && verifyPass()){
             setVerifyReg(true)
-            
         }
         else{
             setVerifyReg(false)
         }
-    },[name, email, pass])
+    },[name, email, password])
 
     return( 
         <View style={{flex:1,width:responsiveScreenWidth(87),justifyContent:'center'}}>
@@ -59,6 +79,7 @@ export const CreateAcc=()=>{
                     placeholderTextColor={myColors.offColor} 
                     style={styles.input} cursorColor={myColors.primary}
                     value={email} onChangeText={setEmail}
+                    autoCapitalize='none'
                     onEndEditing={()=>verifyEmail()}
                 />
             </View>
@@ -66,11 +87,11 @@ export const CreateAcc=()=>{
             <Spacer paddingT={responsiveScreenHeight(0.98)}/>
              {/* password Portion */}
              <View>
-                <Text style={[styles.heading,{color:pass?myColors.offColor:myColors.text}]}>Password</Text>
+                <Text style={[styles.heading,{color:password?myColors.offColor:myColors.text}]}>Password</Text>
                 <TextInput placeholder="**** **** ****" 
                     placeholderTextColor={myColors.offColor} 
                     style={styles.input} cursorColor={myColors.primary}
-                    value={pass} onChangeText={setPass}
+                    value={password} onChangeText={setPass}
                     onEndEditing={()=>verifyPass()}
                     secureTextEntry={true}
                 />
@@ -79,7 +100,7 @@ export const CreateAcc=()=>{
             <Spacer paddingT={responsiveScreenHeight(4.1)}/>
             <View style={{alignItems:'center'}}>
                 {/* Button Register */}
-                <TouchableOpacity onPress={()=>null} activeOpacity={0.8} style={[styles.button,{backgroundColor:verifyReg?myColors.primary:myColors.offColor3}]}>
+                <TouchableOpacity onPress={()=>verifyReg?register():null} activeOpacity={0.8} style={[styles.button,{backgroundColor:verifyReg?myColors.primary:myColors.offColor3}]}>
                     <Text style={styles2(verifyReg).textReg}>Registration</Text>
                 </TouchableOpacity>
                 

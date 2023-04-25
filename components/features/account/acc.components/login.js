@@ -38,7 +38,7 @@ export const Login = ({ navigate }) => {
     const [verifyLog, setVerifyLog] = useState(false)
 
    
-    const login = () => {
+    const onLogin = () => {
         try {
             axiosInstance.post('/users/signin', {
                 email,
@@ -46,12 +46,11 @@ export const Login = ({ navigate }) => {
             }).then(resp => {
                 console.log(resp.data.message);
             })
-                .catch(function (error) {
-                    console.log(error.response.data.message);
-                });
+            .catch(function (error) {
+                console.log(error.response.data.message);
+            });
         }
         catch (error) {
-
             console.log('failed to connect url')
         }
 
@@ -117,7 +116,7 @@ export const Login = ({ navigate }) => {
             <View style={{ alignItems: 'center' }}>
                 {/* Button Login */}
                 {/* <TouchableOpacity onPress={() => verifyLog ? navigate('HomeNavigator') : null} */}
-                <TouchableOpacity onPress={() => verifyLog ? getData() : null}
+                <TouchableOpacity onPress={() => verifyLog ? onLogin() : null}
                     activeOpacity={0.8}
                     style={[styles.button, { backgroundColor: verifyLog ? myColors.primary : myColors.offColor3 }]}>
                     <Text style={styles2(verifyLog).textReg}>Login</Text>
