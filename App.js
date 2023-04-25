@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
+export const url = 'http://192.168.1.108:3000';
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     heading1: require("./assets/fonts/inter/Inter-Bold.ttf"),
